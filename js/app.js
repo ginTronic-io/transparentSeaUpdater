@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION         = '1.0.0';
+const APP_VERSION         = '1.1.0';
 const GITHUB_RELEASES_API = 'https://api.github.com/repos/ginTronic-io/transparentSea/releases';
 const USB_FILTERS         = [{ vendorId: 0x0483, productId: 0xDF11 }];
 const TRANSFER_SIZE       = 2048;
@@ -44,7 +44,7 @@ async function loadReleases() {
             for (const asset of binAssets) {
                 options.push({
                     label:       release.tag_name + (release.prerelease ? '  (pre-release)' : ''),
-                    url:         asset.url,
+                    url:         `firmware/${asset.name}`,
                     name:        asset.name,
                     description: release.body || ''
                 });
@@ -186,7 +186,7 @@ flashBtn.addEventListener('click', async () => {
         appendLog('Downloading firmware from GitHub…');
         setProgress(0, 1, 'Downloading firmware…');
 
-        const res = await fetch(selectedAssetUrl, { headers: { 'Accept': 'application/octet-stream' } });
+        const res = await fetch(selectedAssetUrl);
         if (!res.ok) throw new Error(`Download failed: ${res.status}`);
         const firmwareData = await res.arrayBuffer();
         appendLog(`Downloaded ${(firmwareData.byteLength / 1024).toFixed(1)} KB`);
