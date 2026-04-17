@@ -243,6 +243,19 @@ select.form-select option {
 .log-wrap .text-danger  { color: #e04040 !important; }
 .log-wrap .text-success { color: #40c070 !important; }
 
+/* ── Release notes ─────────────────────────────────────────────────────────── */
+.release-notes {
+    margin-top: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: #09091a;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
 /* ── Browser warning ───────────────────────────────────────────────────────── */
 .browser-warning {
     background: rgba(204, 37, 37, 0.1);

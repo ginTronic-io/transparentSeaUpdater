@@ -7,9 +7,11 @@ const TRANSFER_SIZE       = 2048;
 let connectedDevice   = null;
 let selectedAssetUrl  = null;
 let isFlashing        = false;
+const releaseDescriptions = new Map();
 
 // ── DOM refs ──────────────────────────────────────────────────────────────────
 const releaseSelect   = document.getElementById('release-select');
+const releaseNotes    = document.getElementById('release-notes');
 const connectBtn      = document.getElementById('connect-btn');
 const flashBtn        = document.getElementById('flash-btn');
 const statusBadge     = document.getElementById('status-badge');
@@ -40,9 +42,10 @@ async function loadReleases() {
             const binAssets = release.assets.filter(a => a.name.endsWith('.bin'));
             for (const asset of binAssets) {
                 options.push({
-                    label: release.tag_name + (release.prerelease ? '  (pre-release)' : ''),
-                    url:   asset.browser_download_url,
-                    name:  asset.name
+                    label:       release.tag_name + (release.prerelease ? '  (pre-release)' : ''),
+                    url:         asset.url,
+                    name:        asset.name,
+                    description: release.body || ''
                 });
             }
         }
@@ -53,11 +56,13 @@ async function loadReleases() {
         }
 
         releaseSelect.innerHTML = '';
+        releaseDescriptions.clear();
         for (const opt of options) {
             const el    = document.createElement('option');
             el.value    = opt.url;
             el.textContent = opt.label;
             releaseSelect.appendChild(el);
+            releaseDescriptions.set(opt.url, opt.description);
         }
 
         onReleaseChange();
@@ -69,6 +74,13 @@ async function loadReleases() {
 
 function onReleaseChange() {
     selectedAssetUrl = releaseSelect.value || null;
+    const desc = selectedAssetUrl ? (releaseDescriptions.get(selectedAssetUrl) || '') : '';
+    if (desc.trim()) {
+        releaseNotes.textContent = desc;
+        releaseNotes.classList.remove('d-none');
+    } else {
+        releaseNotes.classList.add('d-none');
+    }
     updateFlashButton();
 }
 
@@ -173,7 +185,7 @@ flashBtn.addEventListener('click', async () => {
         appendLog('Downloading firmware from GitHub…');
         setProgress(0, 1, 'Downloading firmware…');
 
-        const res = await fetch(selectedAssetUrl);
+        const res = await fetch(selectedAssetUrl, { headers: { 'Accept': 'application/octet-stream' } });
         if (!res.ok) throw new Error(`Download failed: ${res.status}`);
         const firmwareData = await res.arrayBuffer();
         appendLog(`Downloaded ${(firmwareData.byteLength / 1024).toFixed(1)} KB`);
