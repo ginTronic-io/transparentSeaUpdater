@@ -300,6 +300,20 @@ select.form-select option {
     margin-bottom: 0.3rem;
 }
 
+.flash-warning {
+    margin-top: 1rem;
+    padding: 0.65rem 1rem;
+    background: rgba(204, 37, 37, 0.1);
+    border: 1px solid rgba(204, 37, 37, 0.4);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: #f08080;
+}
+
+.flash-warning strong {
+    color: #f0a0a0;
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────────── */
 footer {
     border-top: 1px solid var(--border);
