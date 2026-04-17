@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransparentSea — Firmware Updater</title>
+    <meta name="description" content="Update the firmware on your TransparentSea device.">
+
+    <!-- Favicon placeholder — replace with your own -->
+    <!-- <link rel="icon" href="images/favicon.png"> -->
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ── Header ─────────────────────────────────────────────────────────── -->
+    <header>
+        <div class="header-inner">
+            <a href="https://gintronic.io/" target="_blank" rel="noopener">
+                <img src="images/company-logo.png" alt="Gintronic" class="gintronic-logo">
+            </a>
+            <div class="header-divider"></div>
+            <span class="header-title">Firmware Updater</span>
+        </div>
+    </header>
+
+    <!-- ── Main ───────────────────────────────────────────────────────────── -->
+    <main>
+
+        <!-- Hero -->
+        <div class="hero">
+            <img src="images/device-logo.png" alt="TransparentSea" class="device-logo">
+            <p class="hero-sub">Firmware Updater</p>
+        </div>
+
+        <!-- Browser warning (hidden unless WebUSB unavailable) -->
+        <div id="browser-warning" class="browser-warning d-none">
+            <strong>Browser not supported.</strong>
+            WebUSB is required to flash firmware. Please use
+            <a href="https://www.google.com/chrome/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">Google Chrome</a>
+            or Microsoft Edge on a desktop computer.
+        </div>
+
+        <!-- Flash card -->
+        <div class="card mb-3">
+            <div class="card-body">
+
+                <!-- Firmware version selector -->
+                <div class="mb-2">
+                    <label for="release-select">Firmware Version</label>
+                    <select id="release-select" class="form-select">
+                        <option disabled selected>Loading releases…</option>
+                    </select>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Connect + status -->
+                <div class="action-row mb-2">
+                    <button id="connect-btn" class="btn btn-connect">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22V12M12 12l-3-3M12 12l3-3M5 7l2-2 2 2M15 7l2-2 2 2M7 5v3M17 5v3"/>
+                        </svg>
+                        Connect Device
+                    </button>
+                    <span id="status-badge" class="badge bg-secondary">Not connected</span>
+                </div>
+
+                <!-- Flash button -->
+                <div class="action-row mb-2">
+                    <button id="flash-btn" class="btn btn-flash" disabled>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H13L13 2z"/>
+                        </svg>
+                        Flash Firmware
+                    </button>
+                </div>
+
+                <!-- Progress (hidden until flashing) -->
+                <div id="progress-wrap" class="progress-wrap d-none mt-3">
+                    <div class="progress-track">
+                        <div id="progress-bar" class="progress-fill" role="progressbar"
+                             aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div id="progress-label" class="progress-label">0%</div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Log output -->
+                <label>Status Log</label>
+                <div id="log" class="log-wrap"></div>
+
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h6>How to enter DFU mode</h6>
+            <ol>
+                <li>Hold the <strong>BOOT</strong> button on the back of your TransparentSea.</li>
+                <li>While holding BOOT, press and release the <strong>RESET</strong> button (or connect the USB cable).</li>
+                <li>Release BOOT. The device screen will go blank — it is now in DFU mode.</li>
+                <li>Select a firmware version above, click <strong>Connect Device</strong>, and choose your device from the browser prompt.</li>
+                <li>Click <strong>Flash Firmware</strong> and wait for the process to complete. Do not disconnect the USB cable during flashing.</li>
+            </ol>
+        </div>
+
+    </main>
+
+    <!-- ── Footer ─────────────────────────────────────────────────────────── -->
+    <footer>
+        <a href="https://gintronic.io/" target="_blank" rel="noopener">gintronic.io</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/ginTronic-io/transparentSea/releases" target="_blank" rel="noopener">Release notes</a>
+        &nbsp;·&nbsp;
+        Requires Chrome or Edge
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/dfu.js"></script>
+    <script src="js/dfuse.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
