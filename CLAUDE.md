@@ -14,13 +14,17 @@ A static GitHub Pages site that lets users flash TransparentSea firmware over US
 
 ## Firmware releases
 
-Firmware `.bin` files are published as GitHub Release assets on:
-`https://github.com/ginTronic-io/transparentSea/releases`
+Firmware `.bin` files live in `firmware/` in this repo and are also published as GitHub Release assets here:
+`https://github.com/ginTronic-io/transparentSeaUpdater/releases`
 
 The app fetches available versions via the public GitHub REST API:
-`https://api.github.com/repos/ginTronic-io/transparentSea/releases`
+`https://api.github.com/repos/ginTronic-io/transparentSeaUpdater/releases`
 
 Release asset naming convention: `transparentSea-vX.Y.Z.bin`
+
+When releasing a new firmware version:
+1. Copy the `.bin` to `firmware/` and commit
+2. Create a GitHub Release on this repo with the tag and changelog
 
 ## Architecture
 

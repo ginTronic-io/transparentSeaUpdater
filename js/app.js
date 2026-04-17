@@ -1,7 +1,7 @@
 'use strict';
 
-const APP_VERSION         = '1.1.0';
-const GITHUB_RELEASES_API = 'https://api.github.com/repos/ginTronic-io/transparentSea/releases';
+const APP_VERSION         = '1.2.0';
+const GITHUB_RELEASES_API = 'https://api.github.com/repos/ginTronic-io/transparentSeaUpdater/releases';
 const USB_FILTERS         = [{ vendorId: 0x0483, productId: 0xDF11 }];
 const TRANSFER_SIZE       = 2048;
 
