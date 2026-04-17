@@ -1,5 +1,6 @@
 'use strict';
 
+const APP_VERSION         = '1.0.0';
 const GITHUB_RELEASES_API = 'https://api.github.com/repos/ginTronic-io/transparentSea/releases';
 const USB_FILTERS         = [{ vendorId: 0x0483, productId: 0xDF11 }];
 const TRANSFER_SIZE       = 2048;
@@ -249,5 +250,6 @@ function appendLog(msg, level) {
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+document.getElementById('app-version').textContent = 'Updater v' + APP_VERSION;
 setStatus('disconnected');
 loadReleases();
